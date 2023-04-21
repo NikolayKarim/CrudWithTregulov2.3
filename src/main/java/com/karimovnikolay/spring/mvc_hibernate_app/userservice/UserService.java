@@ -1,10 +1,10 @@
-package com.karimovnikolay.spring.mvc_hibernate_app.userDAO;
+package com.karimovnikolay.spring.mvc_hibernate_app.userservice;
 
 import com.karimovnikolay.spring.mvc_hibernate_app.model.User;
 
 import java.util.List;
 
-public interface UserDAO {
+public interface UserService {
     public List<User> getAllUsers();
     public void saveUser(User user);
     public User getUser(Long id);

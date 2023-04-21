@@ -6,8 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import javax.persistence.Query;
+import java.util.*;
 @Repository
 public class UserDAOImpl implements UserDAO {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -15,11 +15,28 @@ public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionFactory;
 
 
-    @Transactional
+
     public List<User> getAllUsers() {
         Session session = sessionFactory.getCurrentSession();
         List<User> users = session.createQuery("from User", User.class).getResultList();
         return users;
 
+    }
+
+    public void saveUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(user);
+    }
+
+    public User getUser(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, id);
+        return user;
+    }
+
+
+    public void deleteUser(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        session.createQuery("delete from User where id="+id).executeUpdate();
     }
 }
